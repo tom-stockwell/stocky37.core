@@ -1,0 +1,30 @@
+---
+- name: create dotfiles root
+  file:
+    path: "{{ dotfiles_root }}"
+    state: directory
+
+- name: clone dotfiles repos
+  git:
+    repo: "{{ repo.url }}"
+    dest: "{{ dotfiles_root }}/{{ repo.name }}"
+    update: no
+  loop: "{{ dotfiles_repos }}"
+  loop_control:
+    loop_var: repo
+    label: "{{ repo.name }}"
+
+- name: get list of dotfile dirs
+  set_fact:
+    dotfiles_dirs: "{{ dotfiles_repos
+       | map(attribute='name')
+       | map('regex_replace', '^(.*)$', dotfiles_root + '/\\1')
+       | list }}"
+
+- name: create ~/.rcrc
+  template:
+    src: "{{ dotfiles_rcrc_template }}"
+    dest: "{{ dotfiles_rcrc_path }}"
+
+- name: run rcup
+  shell: "rcup -f"

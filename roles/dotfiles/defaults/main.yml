@@ -1,0 +1,8 @@
+---
+dotfiles_repos: []
+dotfiles_rcrc_path: ~/.rcrc
+dotfiles_rcrc_template: rcrc.j2
+dotfiles_excludes:
+- README*
+- LICENSE*
+

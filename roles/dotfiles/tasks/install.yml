@@ -1,0 +1,8 @@
+---
+- name: install required packages
+  become: yes
+  package:
+    state: present
+    name:
+    - rcm
+    - git

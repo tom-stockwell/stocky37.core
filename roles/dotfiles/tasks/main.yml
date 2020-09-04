@@ -1,0 +1,6 @@
+---
+- name: install
+  include_tasks: install.yml
+
+- name: configure dotfiles
+  include_tasks: dotfiles.yml  
