@@ -1,0 +1,21 @@
+---
+- name: Check if hosts are up
+  ping:
+  ignore_errors: true
+  ignore_unreachable: true
+  register: ping
+  changed_when: false
+
+- name: Wake up hosts if they are not
+  wakeonlan:
+    mac: "{{ wol_mac }}"
+  delegate_to: localhost
+  when: ping is failed or ping is unreachable
+  changed_when: false
+
+- name: Wait for hosts to come up
+  wait_for_connection:
+  when: ping is failed or ping is unreachable
+
+- name: Gather facts
+  setup:

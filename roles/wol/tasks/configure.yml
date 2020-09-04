@@ -1,0 +1,12 @@
+---
+- name: Check wake-on-lan status
+  shell:
+    cmd: >
+      nmcli c show {{ wol_connection }} | grep '802-3-ethernet.wake-on-lan:'
+  register: nmcli
+  changed_when: false
+
+- name: Enable wake-on-lan
+  command: nmcli c modify {{ wol_connection }} 802-3-ethernet.wake-on-lan magic
+  become: yes
+  when: "'magic' not in nmcli.stdout"

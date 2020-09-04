@@ -1,0 +1,4 @@
+---
+# these defaults need fact caching enabled to z
+wol_mac: "{{ ansible_default_ipv4.macaddress }}"
+wol_connection: "{{ ansible_default_ipv4.alias }}"
