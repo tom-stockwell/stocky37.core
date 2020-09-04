@@ -1,0 +1,29 @@
+---
+- name: set guake settings
+  dconf:
+    key: "{{ guake_dconf_prefix }}{{ item.0 | join('/') }}"
+    value: "{{ item.1 | string }}"
+  loop: "{{ guake_prefs | dict_path | list }}"
+
+- debug:
+    var: guake_dconf_keybind_prefix
+
+- name: bind key to toggle (1/2)
+  dconf:
+    key: "{{ guake_dconf_keybind }}/{{item.0}}"
+    value: "{{ item.1 | string }}"
+  loop:
+    - ['binding', "'{{guake_keybind}}'"]
+    - ['command', "'guake-toggle'"]
+    - ['name', "'Guake'"]
+
+- name: bind key to toggle (2/2)
+  dconf:
+    key: "{{ guake_dconf_keybind_prefix }}"
+    value: "{{ guake_keybind_value | string }}"
+
+- name: unbind existing keybinding
+  dconf:
+    key: "/org/gnome/desktop/wm/keybindings/{{ guake_unbind }}"
+    value: '@as []'
+  when: guake_unbind is defined

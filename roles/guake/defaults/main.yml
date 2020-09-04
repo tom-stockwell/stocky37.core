@@ -1,0 +1,9 @@
+---
+guake_autostart_path: ~/.config/autostart/guake.desktop
+guake_application_path: /usr/share/applications/guake.desktop
+guake_autostart: yes
+guake_dconf_prefix: /apps/guake/
+guake_dconf_keybind_prefix: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+guake_dconf_keybind_name: custom-guake
+guake_keybind: F12
+guake_prefs: {}

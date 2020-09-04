@@ -1,0 +1,3 @@
+---
+guake_dconf_keybind: "{{ guake_dconf_keybind_prefix }}/{{ guake_dconf_keybind_name }}"
+guake_keybind_value: "['{{ guake_dconf_keybind }}/']"

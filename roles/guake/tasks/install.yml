@@ -1,0 +1,7 @@
+---
+- name: install guake
+  become: yes
+  package:
+    state: present
+    name: guake
+
