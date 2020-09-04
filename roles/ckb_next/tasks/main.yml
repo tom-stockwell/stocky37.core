@@ -1,0 +1,13 @@
+---
+- name: install corsair drivers & software
+  become: yes
+  dnf:
+    state: present
+    name: "{{ ckb_packages }}"
+
+- name: start & enable ckb service
+  become: yes
+  systemd:
+    name: "{{ ckb_service_name }}"
+    state: started
+    enabled: yes

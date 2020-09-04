@@ -1,0 +1,4 @@
+---
+ckb_service_name: ckb-next-daemon
+ckb_packages:
+  - ckb-next
