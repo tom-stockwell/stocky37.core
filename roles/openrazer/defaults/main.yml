@@ -1,0 +1,8 @@
+---
+openrazer_repo_name: hardware:razer
+openrazer_repo_url: https://download.opensuse.org/repositories/{{ openrazer_repo_name }}/{{ ansible_distribution }}_{{ ansible_distribution_major_version }}/{{ openrazer_repo_name }}.repo
+openrazer_service_name: openrazer-daemon
+openrazer_users: ["{{ ansible_user_id }}"]
+openrazer_packages:
+  - openrazer-meta
+  - polychromatic

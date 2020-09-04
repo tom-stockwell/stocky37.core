@@ -1,0 +1,37 @@
+---
+- name: add openrazer repo
+  become: yes
+  command: "dnf config-manager --add-repo '{{ openrazer_repo_url }}'"
+  args:
+    warn: no
+
+- name: install razer drivers & software
+  become: yes
+  dnf:
+    state: present
+    name: "{{ openrazer_packages }}"
+
+- name: add user to plugdev group
+  become: yes
+  user:
+    name: "{{ user }}"
+    groups: plugdev
+    append: yes
+  loop: "{{ openrazer_users }}"
+  loop_control:
+    loop_var: user
+
+- name: reset ssh connection for group changes
+  meta: reset_connection
+
+- name: start & enable razer daemon
+  systemd:
+    name: "{{ openrazer_service_name }}"
+    state: started
+    enabled: yes
+    scope: user
+  become: yes
+  become_user: "{{ user }}"
+  loop: "{{ openrazer_users }}"
+  loop_control:
+    loop_var: user
