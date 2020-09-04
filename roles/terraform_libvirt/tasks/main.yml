@@ -1,0 +1,12 @@
+---
+- name: Ensure terraform plugins directory exists
+  file:
+    state: directory
+    name: "{{ terraform_plugins_dir }}"
+
+- name: Download & extract libvirt provider
+  unarchive:
+    remote_src: yes
+    src: "{{ terraform_libvirt_url }}"
+    dest: "{{ terraform_plugins_dir }}"
+    creates: "{{ terraform_plugins_dir }}/{{ terraform_libvirt_binary }}"
