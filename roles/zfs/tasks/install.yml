@@ -1,0 +1,30 @@
+---
+- name: Install zfs repo
+  package:
+    name: "{{ zfs_fedora_url }}"
+    state: present
+  become: yes
+
+- name: Remove incompatible packages
+  package:
+    name: "{{ zfs_fedora_packages.absent }}"
+    state: absent
+  become: yes
+
+- name: Install zfs packages
+  package:
+    name: "{{ zfs_fedora_packages.present }}"
+    state: present
+  become: yes
+
+- name: Add the zfs kernel module
+  modprobe:
+    name: zfs
+    state: present
+  become: yes
+
+- name: Add the zfs kernel module on startup
+  copy:
+    src: zfs-module.conf
+    dest: /etc/modules-load.d/zfs.conf
+  become: yes

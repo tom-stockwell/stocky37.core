@@ -1,0 +1,23 @@
+---
+- name: List existing zpools
+  command: zpool list -H -o name
+  register: zpool_list
+  changed_when: false
+
+- name: Create zpools
+  include_tasks:
+    file: zpool.yml
+  loop: "{{ zpools }}"
+  loop_control:
+    loop_var: zpool
+  when: zpool.name not in zpool_list.stdout_lines
+
+- name: Configure zfs filesystems
+  become: yes
+  zfs:
+    state: present
+    name: "{{ zfs.name }}"
+    extra_zfs_properties: "{{ zfs.options | default(omit, true) }}"
+  loop: "{{ zfs_filesystems }}"
+  loop_control:
+    loop_var: zfs

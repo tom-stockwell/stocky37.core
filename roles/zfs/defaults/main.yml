@@ -1,0 +1,9 @@
+---
+zfs_create_pools: true
+zfs_fedora_url: http://download.zfsonlinux.org/fedora/zfs-release.fc{{ ansible_distribution_major_version }}.noarch.rpm
+zfs_fedora_packages:
+  absent:
+    - zfs-fuse
+  present:
+    - zfs
+    - kernel-devel

@@ -1,0 +1,16 @@
+---
+# Disk based vdevs must be specified before other vdevs
+- name: Specify disk vdevs
+  set_fact:
+    vdevs: "{{ zpool.vdevs | select('string') | list }}"
+
+- name: Collect other vdevs
+  set_fact:
+    vdevs: "{{ vdevs + [vdev.type] + vdev.devices }}"
+  loop: "{{ zpool.vdevs | selectattr('type', 'defined') | list }}"
+  loop_control:
+    loop_var: vdev
+
+- name: Create zpool
+  command: zpool create {{ zpool.name }} {{ zpool.options | default([]) | join (' ') }} {{ vdevs | join(" ") }}
+  become: yes
