@@ -1,0 +1,28 @@
+---
+- name: "Set mirror name"
+  set_fact:
+    mirror_name: "{{ repo | slugify }}"
+
+- name: "Set mirror dir"
+  set_fact:
+    mirror_dir: "{{ git_mirror_workdir }}/{{ mirror_name }}"
+
+- name: Check if repo exists
+  register: dir
+  stat:
+    path: "{{ git_mirror_workdir }}/{{ mirror_name }}"
+
+- name: Show repository loop info
+  debug:
+    msg: "({{ index + 1 }}/{{ total }}) {{ mirror_name }}"
+
+- name: Clone repository
+  when: not dir.stat.exists
+  command: git clone --mirror "{{ repo }}" "{{ mirror_dir }}"
+
+- name: Update repository
+  when: dir.stat.exists
+  command: git remote update
+  args:
+    chdir: "{{ mirror_dir }}"
+

@@ -1,0 +1,7 @@
+---
+- include_tasks: download.yml
+  when: git_mirror_action == 'download' or git_mirror_action == 'mirror'
+
+- include_tasks: upload.yml
+  when: git_mirror_action == 'upload' or git_mirror_action == 'mirror'
+
