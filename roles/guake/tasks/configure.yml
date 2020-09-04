@@ -3,7 +3,7 @@
   dconf:
     key: "{{ guake_dconf_prefix }}{{ item.0 | join('/') }}"
     value: "{{ item.1 | string }}"
-  loop: "{{ guake_prefs | dict_path | list }}"
+  loop: "{{ guake_prefs | stocky37.core.dict_path | list }}"
 
 - debug:
     var: guake_dconf_keybind_prefix
