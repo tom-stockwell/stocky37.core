@@ -1,0 +1,13 @@
+---
+- name: Place systemd file
+  template:
+    src: "{{ src }}"
+    dest: "{{ shutdown_timer_systemd_dir }}/{{ name }}"
+  register: template
+
+- name: Update systemd
+  systemd:
+    enabled: "{{ enabled | default(omit) }}"
+    state: "{{ state | default(omit) }}"
+    daemon_reload: "{{ template.changed | bool }}"
+    name: "{{ name }}"

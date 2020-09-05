@@ -1,0 +1,9 @@
+[Unit]
+Description={{ shutdown_timer_description }}
+
+[Service]
+Type={{ shutdown_timer_svc_type }}
+ExecStart={{ shutdown_timer_svc_cmd }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+[Unit]
+Description={{ shutdown_timer_description }}
+
+[Timer]
+Unit={{ shutdown_timer_name }}.service
+OnCalendar={{ shutdown_timer_oncalendar }}
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,16 @@
+---
+- name: Generate systemd service
+  include_tasks: systemd-template.yml
+  vars:
+    name: "{{ shutdown_timer_name }}.service"
+    src: "{{ shutdown_timer_svc_template }}"
+    enabled: no
+    state: stopped
+
+- name: Generate systemd timer
+  include_tasks: systemd-template.yml
+  vars:
+    name: "{{ shutdown_timer_name }}.timer"
+    src: "{{ shutdown_timer_template }}"
+    enabled: yes
+    state: started

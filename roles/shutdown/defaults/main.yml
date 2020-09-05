@@ -1,0 +1,9 @@
+---
+shutdown_timer_systemd_dir: /etc/systemd/system
+shutdown_timer_name: 'shutdown-automatic'
+shutdown_timer_oncalendar: 'daily'
+shutdown_timer_description: 'Automatically shuts down at a specified time'
+shutdown_timer_svc_cmd: 'shutdown now'
+shutdown_timer_svc_type: 'oneshot'
+shutdown_timer_template: 'systemd.timer.j2'
+shutdown_timer_svc_template: 'systemd.service.j2'
