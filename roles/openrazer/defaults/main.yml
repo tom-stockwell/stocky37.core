@@ -6,3 +6,5 @@ openrazer_users: ["{{ ansible_user_id }}"]
 openrazer_packages:
   - openrazer-meta
   - polychromatic
+openrazer_prereqs:
+  - kernel-devel

@@ -1,4 +1,10 @@
 ---
+- name: Install openrazer prerequisites
+  become: yes
+  dnf:
+    state: present
+    name: "{{ openrazer_prereqs }}"
+
 - name: add openrazer repo
   become: yes
   command: "dnf config-manager --add-repo '{{ openrazer_repo_url }}'"
