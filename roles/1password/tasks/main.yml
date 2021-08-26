@@ -1,0 +1,20 @@
+---
+- name: Import GPG key
+  become: yes
+  rpm_key:
+    state: present
+    key: "{{ onepassword_repo_key_url }}"
+
+- name: Configure rpm repo
+  become: yes
+  yum_repository:
+    state: present
+    name: "{{ onepassword_repo_name }}"
+    description: "{{ onepassword_repo_description }}"
+    baseurl: "{{ onepassword_repo_baseurl }}"
+
+- name: Install 1password
+  become: yes
+  package:
+    state: present
+    name: "{{ onepassword_packages }}"
