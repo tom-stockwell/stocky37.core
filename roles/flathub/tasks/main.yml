@@ -1,0 +1,6 @@
+- name: Add flathub remotes
+  flatpak_remote:
+    name: flathub
+    method: user
+    state: present
+    flatpakrepo_url: "{{ flathub_remote_url }}"
