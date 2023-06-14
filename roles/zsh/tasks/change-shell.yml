@@ -1,0 +1,5 @@
+- name: Change shell to zsh
+  become: yes
+  user:
+    name: "{{ zsh_username }}"
+    shell: "{{ zsh_path }}"

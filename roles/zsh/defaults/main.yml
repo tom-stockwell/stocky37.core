@@ -1,0 +1,2 @@
+zsh_path: '/usr/bin/zsh'
+zsh_username: "{{ ansible_user_id }}"

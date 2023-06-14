@@ -1,0 +1,5 @@
+- name: Install zsh
+  become: yes
+  package:
+    name: "{{ zsh_packages }}"
+    state: present
