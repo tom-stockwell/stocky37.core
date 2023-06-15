@@ -1,0 +1,15 @@
+- name: Install QMK prerequisites
+  become: yes
+  package:
+    state: present
+    name: "{{ qmk_prereq_packages }}"
+
+- name: Install QMK
+  ansible.builtin.pip:
+    state: present
+    name: "{{ qmk_pip_packages }}"
+    extra_args: --user
+
+- name: Setup QMK
+  ansible.builtin.command:
+    cmd: qmk setup -y

@@ -1,0 +1,17 @@
+- name: Install packages
+  become: yes
+  ansible.builtin.package:
+    name: "{{ pop_shell_packages }}"
+    state: present
+  register: pop_installed
+
+- name: Restart Gnome Shell to ensure extension is visible
+  ansible.builtin.command:
+    cmd: killall -3 gnome-shell
+  when: pop_installed.changed
+
+- name: Enable extensions
+  ansible.builtin.command: gnome-shell-extension-tool -e {{ pop_shell_extension_name }}
+  register: r_gnome_enable_extension
+  changed_when: "'is now enabled' in r_gnome_enable_extension.stderr"
+  failed_when: r_gnome_enable_extension.rc != 0 and 'already enabled' not in r_gnome_enable_extension.stderr

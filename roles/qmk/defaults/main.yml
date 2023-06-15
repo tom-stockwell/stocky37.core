@@ -1,0 +1,6 @@
+qmk_prereq_packages:
+  - git
+  - python3-pip
+
+qmk_pip_packages:
+  - qmk

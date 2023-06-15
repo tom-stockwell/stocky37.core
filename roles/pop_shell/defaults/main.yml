@@ -1,0 +1,5 @@
+pop_shell_packages:
+  - gnome-shell-extension-pop-shell
+  - xprop
+
+pop_shell_extension_name: pop-shell@system76.com
