@@ -9,7 +9,9 @@
     state: present
     name: "{{ qmk_pip_packages }}"
     extra_args: --user
+  register: qmk_installed
 
 - name: Setup QMK
   ansible.builtin.command:
     cmd: qmk setup -y
+  when: qmk_installed.changed
