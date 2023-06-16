@@ -13,6 +13,7 @@
   loop_control:
     loop_var: repo
     label: "{{ repo.name }}"
+  notify: run rcup
 
 - name: get list of dotfile dirs
   set_fact:
@@ -25,6 +26,6 @@
   template:
     src: "{{ dotfiles_rcrc_template }}"
     dest: "{{ dotfiles_rcrc_path }}"
+  notify: run rcup
 
-- name: run rcup
-  shell: "rcup -f"
+
