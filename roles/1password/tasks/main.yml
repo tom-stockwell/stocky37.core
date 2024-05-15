@@ -1,20 +1,9 @@
----
-- name: Import GPG key
-  become: yes
-  rpm_key:
-    state: present
-    key: "{{ onepassword_repo_key_url }}"
+- name: Include OS-specific variables
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', files) }}"
+  vars:
+    files:
+      - vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
+      - vars/{{ ansible_os_family }}.yml
 
-- name: Configure rpm repo
-  become: yes
-  yum_repository:
-    state: present
-    name: "{{ onepassword_repo_name }}"
-    description: "{{ onepassword_repo_description }}"
-    baseurl: "{{ onepassword_repo_baseurl }}"
-
-- name: Install 1password
-  become: yes
-  package:
-    state: present
-    name: "{{ onepassword_packages }}"
+- name: Include OS-specific setup tasks
+  ansible.builtin.include_tasks: steps/{{ ansible_os_family }}.yml

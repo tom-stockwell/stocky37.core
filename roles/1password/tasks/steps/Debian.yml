@@ -1,0 +1,5 @@
+- name: Install 1password
+  ansible.builtin.apt:
+    state: present
+    deb: "{{ onepassword_deb_url }}"
+  become: true

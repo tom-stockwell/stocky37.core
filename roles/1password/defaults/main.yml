@@ -1,7 +1,5 @@
 ---
-onepassword_repo_name: 1password
-onepassword_repo_description: 1Password Stable Channel
-onepassword_repo_baseurl: 'https://downloads.1password.com/linux/rpm/stable/$basearch'
 onepassword_repo_key_url: https://downloads.1password.com/linux/keys/1password.asc
 onepassword_packages:
-- 1password
+  - 1password
+onepassword_repo_name: 1password
